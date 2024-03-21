@@ -21,7 +21,7 @@ from langchain_core.runnables import (
 )
 from langchain_core.vectorstores import VectorStore
 from langchain_openai import OpenAIEmbeddings
-
+from langchain.embeddings import AzureOpenAIEmbeddings
 from app.ingest import ingest_blob
 from app.parsing import MIMETYPE_BASED_PARSER
 
@@ -114,7 +114,8 @@ index_schema = {
 vstore = Redis(
     redis_url=os.environ["REDIS_URL"],
     index_name="opengpts",
-    embedding=OpenAIEmbeddings(),
+    # embedding=OpenAIEmbeddings(),
+    embedding=AzureOpenAIEmbeddings(azure_deployment="text-embedding-ada-002"),
     index_schema=index_schema,
 )
 
